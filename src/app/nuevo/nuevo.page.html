@@ -1,0 +1,75 @@
+<ion-header>
+  <ion-toolbar color="lila">
+    <ion-title>Cliente nuevo</ion-title>
+    <ion-button slot="end" color="lila" routerLink= "/tabs/agregar">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="myForm">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating" color="lila">Nombre Pet</ion-label>
+          <ion-input color="lila" formControlName="nombre" type="text"></ion-input>
+        </ion-item>
+        <div class="">
+          <ng-container *ngFor="let val of validationMessages['nombre']">
+            <div class="" *ngIf="myForm.get('nombre').hasError(val.type)&&(myForm.get('nombre').dirty || myForm.get('nombre').touched)" >
+              {{val.message}}
+            </div>
+          </ng-container>
+        </div>
+        <ion-item>
+          <ion-label posotion="floating" color="lila">Tipo Pet</ion-label>
+          <ion-select color="lila" interface="popover" formControlName="tipo">
+            <ion-select-option value="Perro" color="lila">Perro</ion-select-option>
+            <ion-select-option value="Gato">Gato</ion-select-option>
+            <ion-select-option value="Pez">Pez</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div class="">
+          <ng-container *ngFor="let val of validationMessages['tipo']">
+            <div class="" *ngIf="myForm.get('tipo').hasError(val.type)&&(myForm.get('tipo').dirty || myForm.get('tipo').touched)" >
+              {{val.message}}
+            </div>
+          </ng-container>
+        </div>
+        <ion-item>
+          <ion-label position="floating" color="lila">Nombre contacto</ion-label>
+          <ion-input formControlName="contacto" type="text"></ion-input>
+        </ion-item>
+        <div class="">
+          <ng-container *ngFor="let val of validationMessages['contacto']">
+            <div class="" *ngIf="myForm.get('contacto').hasError(val.type)&&(myForm.get('contacto').dirty || myForm.get('contacto').touched)" >
+              {{val.message}}
+            </div>
+          </ng-container>
+        </div>
+        <ion-item>
+          <ion-label position="floating" color="lila">Tel contacto</ion-label>
+          <ion-input formControlName="telefono" type="number"></ion-input>
+        </ion-item>
+        <div class="">
+          <ng-container *ngFor="let val of validationMessages['telefono']">
+            <div class="" *ngIf="myForm.get('telefono').hasError(val.type)&&(myForm.get('telefono').dirty || myForm.get('telefono').touched)" >
+              {{val.message}}
+            </div>
+          </ng-container>
+        </div>
+        <ion-img *ngIf="base64Image" src="{{base64Image}}"></ion-img>
+        <ion-button expand="block" color="lila" (click)="takePic()">
+          <ion-icon name="camera-outline"></ion-icon>
+        </ion-button>
+        <ion-button expand="block" color="lila" (click)="getGallery()">
+          Gallery
+        </ion-button>
+        <ion-button expand="block" color="lila" routerLink="/tabs/agregar" type="submit" [disabled]="!myForm.valid" (click)="create()">
+          Guardar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>

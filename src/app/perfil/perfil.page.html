@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar color="lila">
+    <ion-title>Anima-Pet</ion-title>
+    <ion-button slot="end" color="lila" routerLink= "/tabs/pacientes">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-header>
+      <ion-img src="{{img}}"></ion-img>
+      <ion-card-title>{{nombre}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-item>
+          <p>
+            TIPO: {{tipo}}
+            <br>
+            Contacto: {{contacto}}
+            <br>
+            Tel: {{telefono}}
+          </p>
+        </ion-item>
+        <ion-button expand="block" color="lila" href="https://wa.me/521{{telefono}}">
+          <ion-icon name="logo-whatsapp"></ion-icon>
+        </ion-button>
+        <ion-button expand="block" color="lila" href="tel:{{telefono}}">
+          <ion-icon name="call-outline"></ion-icon>
+        </ion-button>
+      <ion-fab horizontal="end" vertical="top" slot="fixed" (click)="postId(mascota)">
+        <ion-fab-button color="peach">
+          <ion-icon name="pencil-outline"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </ion-card-content>
+  </ion-card>
+  <ion-row>
+    <ion-col size="12">
+      <ion-list *ngFor="let cita of citas" color="peach" class="list" lines="none">
+        <ion-item color="casiblanco" class="item">
+          <h3>Cita:<br>{{cita.fecha}}<br>Servicio:<br>{{cita.servicio}}</h3>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>

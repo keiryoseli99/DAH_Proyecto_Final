@@ -1,0 +1,28 @@
+<ion-header>
+  <ion-toolbar color="lila">
+    <ion-title>Agregar</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <ion-button expand="block" color="lila" routerLink="/nuevo">
+        Cliente Nuevo
+      </ion-button>
+      <ion-searchbar 
+        placeholder="Cliente existente"
+        [(ngModel)]="searchTerm"
+        showCancelButton="focus"
+        animated></ion-searchbar>
+      <ion-list *ngFor="let mascota of mascotas | filter:searchTerm" color="peach" class="list" lines="none">
+        <ion-item color="casiblanco" (click)="postId(mascota)" class="item">
+          <div class="img">
+            <ion-img src="{{mascota.img}}"></ion-img>
+          </div>
+          <h3>Mascota: {{mascota.nombre}}<br>Contacto: {{mascota.contacto}}</h3>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
+</ion-content>

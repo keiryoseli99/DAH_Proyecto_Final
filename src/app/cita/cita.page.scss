@@ -1,0 +1,50 @@
+ion-button, ion-toolbar {
+    background-color: var(--ion-color-lila);
+  }
+  
+  .img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background-color: var(--ion-color-peach);  
+    margin-right: 20px; 
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+  
+  .list .item {
+    border-width: 1px;
+    border-style: ridge;
+    border-block-end-style: none;
+    padding: 0%;
+    border-radius: 10px;
+  }
+  
+  .list {
+    margin: 0%;
+    list-style: none;
+    margin-bottom: 10px;
+  }
+
+.calendar {
+  background-color: var(--ion-color-lila);
+}
+
+ion-modal {
+  --background: rgba(44, 39, 45, 0.2);
+
+  &::part(content) {
+    backdrop-filter: blur(6px);
+  }
+}
+
+.cal {
+  --background: transparent;
+  --padding-top: 25vh;
+  --padding-start: 20px;
+  --padding-end: 20px;
+
+  ion-datetime {
+    border-radius: 8px;
+  }
+}

@@ -1,20 +1,26 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>
-      Blank
-    </ion-title>
+<ion-header>
+  <ion-toolbar color="lila">
+    <ion-title>Anima-Pet: Citas de Hoy</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
-    </ion-toolbar>
-  </ion-header>
-
-  <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
-  </div>
+<ion-content>
+  <ion-row>
+    <ion-col>
+      <!-- <ion-list *ngFor="let mascota of mascotas" color="peach" class="list" lines="none">
+        <ion-item color="casiblanco" (click)="postId(mascota)" class="item">
+          <div class="img">
+            <ion-img src="{{mascota.img}}"></ion-img>
+          </div>
+          <h3>{{mascota.nombre}}<br>{{mascota.contacto}}</h3>
+          <h3>{{mascota.nombre}}<br>{{mascota.contacto}}</h3>
+        </ion-item>
+      </ion-list> -->
+      <ion-list *ngFor="let cita of citas" color="peach" class="list" lines="none">
+        <ion-item color="casiblanco" class="item">
+          <h3>Hora: {{cita.hora}}<br>Fecha: {{cita.fecha}}</h3>
+        </ion-item>
+      </ion-list>
+    </ion-col>
+  </ion-row>
 </ion-content>

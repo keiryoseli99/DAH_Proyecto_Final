@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="lila">
+    <ion-title>Cita Nueva</ion-title>
+    <ion-button slot="end" color="lila" routerLink= "/tabs/agregar">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="myForm">
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label>Fecha:</ion-label>
+          <!-- <ion-text *ngIf="date">{{ date }}</ion-text> -->
+
+          <ion-text *ngIf="hora">{{ hora }}</ion-text>
+          <ion-label>{{espacio}}</ion-label>
+          <ion-label>Hora:</ion-label>
+          <ion-text *ngIf="fecha">{{ fecha }}</ion-text>
+
+          <ion-button slot="end" id="open-date-input" class="calendar" color="lila">
+            <ion-icon icon="calendar-outline"></ion-icon>
+          </ion-button>
+          <ion-modal trigger="open-date-input" show-backdrop="false" color="lila">
+            <ng-template>
+              <ion-content class="cal">
+                <ion-datetime
+                  #popoverDatetime
+                  [value]="dateValue" size="cover"
+                  (ionChange)="formatDate(popoverDatetime.value)">
+                  <ion-buttons slot="buttons">
+                    <ion-button (click)="select()">Aceptar</ion-button>
+                    <ion-button (click)="cancel()">Cancelar</ion-button>
+                  </ion-buttons>
+                </ion-datetime>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
+        </ion-item>
+        <div class="">
+          <ng-container *ngFor="let val of validationMessages['fecha']">
+            <div class="" *ngIf="myForm.get('fecha').hasError(val.type)&&(myForm.get('fecha').dirty || myForm.get('fecha').touched)" >
+              {{val.message}}
+            </div>
+          </ng-container>
+        </div>
+        <!-- [(ngModel)]="fecha" -->
+  
+        <ion-item>
+          <ion-label posotion="floating" color="lila">Servicio</ion-label>
+          <ion-select color="lila" interface="popover" formControlName="servicio">
+            <ion-select-option value="Estética" color="lila">Estética</ion-select-option>
+            <ion-select-option value="Medicina Preventiva">Medicina Preventiva</ion-select-option>
+            <ion-select-option value="Ecografía">Ecografía</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <div class="">
+          <ng-container *ngFor="let val of validationMessages['servicio']">
+            <div class="" *ngIf="myForm.get('servicio').hasError(val.type)&&(myForm.get('servicio').dirty || myForm.get('servicio').touched)" >
+              {{val.message}}
+            </div>
+          </ng-container>
+        </div>
+        <ion-button expand="block" color="lila" routerLink="/tabs/agregar" type="submit" [disabled]="!myForm.valid" (click)="create()">
+          Guardar
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
+</ion-content>
