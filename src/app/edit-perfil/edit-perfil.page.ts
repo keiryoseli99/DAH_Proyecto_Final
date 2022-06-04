@@ -12,6 +12,7 @@ import { map, finalize } from "rxjs/operators";
 import { Observable } from "rxjs";
 
 import { ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-edit-perfil',
@@ -42,6 +43,7 @@ export class EditPerfilPage implements OnInit {
     private alertCtrl: AlertController,
     private storage: AngularFireStorage,
     private route: ActivatedRoute,
+    private toast: ToastController
   ) { 
     this.id = this.route.snapshot.paramMap.get('id');
     this.nombre = this.route.snapshot.paramMap.get('nombre');
@@ -96,9 +98,17 @@ export class EditPerfilPage implements OnInit {
       img: this.base64Image
     }
     this.mascotasService.updatePet(this.mascota, this.id);
-    this.upload();
+    //this.upload();
+    this.presentToast();
   }
 
+  async presentToast(){
+    const t = await this.toast.create({
+      message: 'Se actualizó perfil',
+      duration: 2000
+    });
+    t.present()
+  }
 
   // getCamera(){
   //   return this.camera.getPicture({

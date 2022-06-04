@@ -4,5 +4,5 @@ export class Mascota {
     tipo: string;
     contacto: string;
     telefono;
-    img?;
+    img?: string;
 }

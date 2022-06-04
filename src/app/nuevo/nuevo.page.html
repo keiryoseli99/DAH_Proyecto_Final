@@ -60,10 +60,10 @@
           </ng-container>
         </div>
         <ion-img *ngIf="base64Image" src="{{base64Image}}"></ion-img>
-        <ion-button expand="block" color="lila" (click)="takePic()" platform="android">
+        <ion-button expand="block" color="lila" (click)="takePic()">
           <ion-icon name="camera-outline"></ion-icon>
         </ion-button>
-        <ion-button expand="block" color="lila" (click)="getGallery()" platform="android">
+        <ion-button expand="block" color="lila" (click)="getGallery()">
           Gallery
         </ion-button>
         <ion-button expand="block" color="lila" routerLink="/tabs/agregar" type="submit" [disabled]="!myForm.valid" (click)="create()">

@@ -4,6 +4,8 @@ import { MascotasService } from './../services/mascotas.service';
 import { Mascota } from './../models/mascota';
 import { Cita } from '../model/cita';
 import { ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -24,7 +26,13 @@ export class PerfilPage implements OnInit {
   public cita:Cita;
   public citas: any[]=[];
 
-  constructor(private service:MascotasService, private route: ActivatedRoute, public alertCtrl: AlertController, private navCtrl: NavController) {
+  constructor(
+    private service:MascotasService, 
+    private route: ActivatedRoute, 
+    public alertCtrl: AlertController, 
+    private navCtrl: NavController,
+    private toast: ToastController,
+    private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
     this.nombre = this.route.snapshot.paramMap.get('nombre');
     this.tipo = this.route.snapshot.paramMap.get('tipo');
@@ -62,5 +70,19 @@ export class PerfilPage implements OnInit {
 
   postId(mascota){
     this.navCtrl.navigateForward(['/edit-perfi/'+mascota.id, mascota]);
+  }
+
+  delete(id: string){
+    this.service.deleteDate(id);
+    this.presentToast();
+    this.router.navigate(['/tabs/pacientes']);
+  }
+
+  async presentToast(){
+    const t = await this.toast.create({
+      message: 'Cita eliminada.',
+      duration: 2000
+    });
+    t.present()
   }
 }

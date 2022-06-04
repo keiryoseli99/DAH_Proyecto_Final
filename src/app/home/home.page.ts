@@ -19,6 +19,7 @@ export class HomePage {
   public hoy: string;
   public resultado: string;
   public id: any[]=[];
+  public ambos: any[]=[];
 
   constructor(private service:MascotasService, public alertCtrl: AlertController, private navCtrl: NavController) {
     this.hoy = format(new Date(Date.now()), 'dd-MM-yyyy');
@@ -69,9 +70,15 @@ export class HomePage {
     //     });      
     //   });
     // });
-    //  console.log(this.mascotas)
-    //  console.log(this.id)
-    //  console.log(this.citas)
+    // console.log(this.mascotas)
+    // console.log(this.id)
+    // console.log(this.citas)
+
+    // if(this.citas.length>0){
+    //   for(let i=0; i<this.citas.length; ++i){
+    //     this.ambos[i] = this.citas.pop(i)
+    //   }
+    // }
   }
   
 

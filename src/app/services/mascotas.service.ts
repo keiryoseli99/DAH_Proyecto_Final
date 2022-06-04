@@ -42,58 +42,10 @@ export class MascotasService {
     this.firestore.doc('mascotas/'+id).update(mascota);
   }
 
-  // getImg() {
-  //   const docRef = doc(this.firestore, 'users/${user.uid}')
-  // }
+  deletePet(id: string){
+    this.firestore.doc('mascotas/'+id).delete();
+  }
 
-  // async uploadImage(caneraFile: Photo) {
-  //   const path = 'uploads/$user{user.id}/profile.png';
-  //   const storageRef = ref(this.storage, path);
-  // }
-
-  // getCamera(imgURL){
-  //   return this.camera.getPicture({
-  //     sourceType: this.camera.PictureSourceType.CAMERA,
-  //     destinationType: this.camera.DestinationType.FILE_URI
-  //   }).then((res)=>{
-  //     imgURL = res
-  //   }).catch(e =>{
-  //     console.log(e)
-  //   })
-  // }
-
-  // getGallery(imgURL){
-  //   return this.camera.getPicture({
-  //     sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-  //     destinationType: this.camera.DestinationType.DATA_URL
-  //   }).then((res)=>{
-  //     imgURL = 'data:image/jpeg;base64,' + res
-  //   }).catch(e =>{
-  //     console.log(e)
-  //   })
-  // }
-
-  // takePic(imgURL){
-  //   const options: CameraOptions = {
-  //     quality:100,
-  //     destinationType: this.camera.DestinationType.DATA_URL,
-  //     encodingType: this.camera.EncodingType.JPEG,
-  //     mediaType: this.camera.MediaType.PICTURE,
-  //     sourceType: this.camera.PictureSourceType.CAMERA
-  //   };
-  //   this.camera.getPicture(options).then((imagenData) => {
-  //     imgURL = 'data:image/jpeg;base64,' + imagenData;
-  //   }).catch(e =>{
-  //     console.log(e)
-  //   })
-  // }
-
-  // getImg(file: any, path: string, nombre: string){
-  //   const filePath = path + '/' + nombre;
-  //   const ref = this.storage.ref(filePath);
-  //   const task = ref.put(file);
-  //   // return this.storage.ref('');
-  // }
   ////////////////////CITAS////////////////////
 
   createCita(cita: Cita){
@@ -106,5 +58,9 @@ export class MascotasService {
   getDateById(filter){
     return this.firestore.collection('citas', filter).snapshotChanges();
     //return this.firestore.collection('citas').valueChanges({mascotas: 'mascotas/'+id});
+  }
+
+  deleteDate(id: string){
+    this.firestore.doc('citas/'+id).delete();
   }
 }

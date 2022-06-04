@@ -9,6 +9,7 @@ import { Mascota } from './../models/mascota';
 import { Cita } from './../model/cita';
 import { Time } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-cita',
@@ -38,6 +39,7 @@ export class CitaPage implements OnInit {
     private navCtrl: NavController,
     private mascotasService:MascotasService,
     private fb:FormBuilder,
+    private toast: ToastController
   ) {
     this.id = this.route.snapshot.paramMap.get('id');
     // console.log(this.fecha)
@@ -70,6 +72,15 @@ export class CitaPage implements OnInit {
       hora: this.hora
     }
     this.mascotasService.createCita(this.cita);
+    this.presentToast();
+  }
+
+  async presentToast(){
+    const t = await this.toast.create({
+      message: 'Se añadió cita',
+      duration: 2000
+    });
+    t.present()
   }
 
   reset() {

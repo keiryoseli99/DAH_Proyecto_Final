@@ -10,6 +10,7 @@ import { Mascota } from './../models/mascota';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { map, finalize } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-nuevo',
@@ -32,7 +33,8 @@ export class NuevoPage implements OnInit {
     private fb:FormBuilder,
     private camera: Camera,
     private alertCtrl: AlertController,
-    private storage: AngularFireStorage
+    private storage: AngularFireStorage,
+    private toast: ToastController
   ) { }
 
   ngOnInit() {
@@ -75,10 +77,25 @@ export class NuevoPage implements OnInit {
       telefono: this.myForm.controls.telefono.value,
       img: this.base64Image
     }
-    this.mascotasService.create(this.mascota);
-    this.upload();
+    this.mascotasService.create(this.mascota).catch(e=>{
+      const alert = this.alertCtrl.create({
+        cssClass: 'basic-alert',
+        header: 'error',
+        message: e,
+        buttons: ['OK']
+      })
+    });
+    //this.upload();
+    this.presentToast();
   }
 
+  async presentToast(){
+    const t = await this.toast.create({
+      message: 'Paciente nuevo agregado.',
+      duration: 2000
+    });
+    t.present()
+  }
 
   // getCamera(){
   //   return this.camera.getPicture({
@@ -104,10 +121,10 @@ export class NuevoPage implements OnInit {
 
   takePic(){
     const options: CameraOptions = {
-      quality:100,
+      //quality:100,
       destinationType: this.camera.DestinationType.DATA_URL,
-      // encodingType: this.camera.EncodingType.JPEG,
-      // mediaType: this.camera.MediaType.PICTURE,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
       sourceType: this.camera.PictureSourceType.CAMERA,
       // saveToPhotoAlbum: true
     };

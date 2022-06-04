@@ -6,9 +6,5 @@
     <param name="android-package" value="org.apache.cordova.camera.CameraLauncher"/>
   </feature>
 
-  <feature name="Toast">
-    <param name="android-package" value="nl.xservices.plugins.Toast"/>
-  </feature>
-
   
 </widget>
