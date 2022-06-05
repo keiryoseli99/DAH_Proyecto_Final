@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NavController, AlertController } from '@ionic/angular';
 import { Camera, CameraOptions } from '@awesome-cordova-plugins/camera/ngx';
+import { CameraMock } from '../camera.mock'
 
 import { MascotasService } from './../services/mascotas.service';
 import { Mascota } from './../models/mascota';
@@ -17,6 +18,7 @@ import { ToastController } from '@ionic/angular';
   templateUrl: './nuevo.page.html',
   styleUrls: ['./nuevo.page.scss'],
 })
+
 export class NuevoPage implements OnInit {
 
   public myForm:FormGroup;
@@ -24,7 +26,7 @@ export class NuevoPage implements OnInit {
   public validationMessages: object;
   imgURL: string;
 
-  base64Image: string;
+  base64Image: any = null;
   selectedFile: File = null;
   downloadURL: Observable<string>;
 
@@ -119,71 +121,76 @@ export class NuevoPage implements OnInit {
     })
   }
 
-  takePic(){
-    const options: CameraOptions = {
-      //quality:100,
-      destinationType: this.camera.DestinationType.DATA_URL,
-      encodingType: this.camera.EncodingType.JPEG,
-      mediaType: this.camera.MediaType.PICTURE,
-      sourceType: this.camera.PictureSourceType.CAMERA,
-      // saveToPhotoAlbum: true
-    };
-    this.camera.getPicture(options).then((imagenData) => {
-      //this.imgURL = 'data:image/jpeg;base64,' + imagenData;
-      this.base64Image = 'data:image/jpeg;base64,' + imagenData;
-    }).catch(e =>{
-      console.log(e)
-    })
-  }
-
-  upload(): void {
-    var currentDate = Date.now();
-    const file: any = this.base64ToImage(this.base64Image);
-    const filePath = `Images/${currentDate}`;
-    const fileRef = this.storage.ref(filePath);
-
-    const task = this.storage.upload(`Images/${currentDate}`, file);
-    task.snapshotChanges()
-      .pipe(finalize(() => {
-        this.downloadURL = fileRef.getDownloadURL();
-        this.downloadURL.subscribe(downloadURL => {
-          if (downloadURL) {
-            this.showSuccesfulUploadAlert();
-          }
-          console.log(downloadURL);
-        });
+  async takePic(): Promise<any>{
+    try {
+      const options: CameraOptions = {
+        //quality:100,
+        destinationType: this.camera.DestinationType.DATA_URL,
+        encodingType: this.camera.EncodingType.JPEG,
+        mediaType: this.camera.MediaType.PICTURE,
+        sourceType: this.camera.PictureSourceType.CAMERA,
+        correctOrientation: true
+        // saveToPhotoAlbum: true
+      };
+      this.camera.getPicture(options).then((imagenData) => {
+        //this.imgURL = 'data:image/jpeg;base64,' + imagenData;
+        this.base64Image = 'data:image/jpeg;base64,' + imagenData;
+      }).catch(e =>{
+        console.log(e)
       })
-      )
-      .subscribe(url => {
-        if (url) {
-          console.log(url);
-        }
-      });
-  }
-
-  async showSuccesfulUploadAlert() {
-    const alert = await this.alertCtrl.create({
-      cssClass: 'basic-alert',
-      header: 'Uploaded',
-      subHeader: 'Image uploaded successful to Firebase storage',
-      message: 'Check Firebase storage.',
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
-  base64ToImage(dataURI) {
-    const fileDate = dataURI.split(',');
-    // const mime = fileDate[0].match(/:(.*?);/)[1];
-    const byteString = atob(fileDate[1]);
-    const arrayBuffer = new ArrayBuffer(byteString.length);
-    const int8Array = new Uint8Array(arrayBuffer);
-    for (let i = 0; i < byteString.length; i++) {
-      int8Array[i] = byteString.charCodeAt(i);
+    }catch(e){
+      console.log(e)
     }
-    const blob = new Blob([arrayBuffer], { type: 'image/png' });
-    return blob;
   }
+
+  // upload(): void {
+  //   var currentDate = Date.now();
+  //   const file: any = this.base64ToImage(this.base64Image);
+  //   const filePath = `Images/${currentDate}`;
+  //   const fileRef = this.storage.ref(filePath);
+
+  //   const task = this.storage.upload(`Images/${currentDate}`, file);
+  //   task.snapshotChanges()
+  //     .pipe(finalize(() => {
+  //       this.downloadURL = fileRef.getDownloadURL();
+  //       this.downloadURL.subscribe(downloadURL => {
+  //         if (downloadURL) {
+  //           this.showSuccesfulUploadAlert();
+  //         }
+  //         console.log(downloadURL);
+  //       });
+  //     })
+  //     )
+  //     .subscribe(url => {
+  //       if (url) {
+  //         console.log(url);
+  //       }
+  //     });
+  // }
+
+  // async showSuccesfulUploadAlert() {
+  //   const alert = await this.alertCtrl.create({
+  //     cssClass: 'basic-alert',
+  //     header: 'Uploaded',
+  //     subHeader: 'Image uploaded successful to Firebase storage',
+  //     message: 'Check Firebase storage.',
+  //     buttons: ['OK']
+  //   });
+
+  //   await alert.present();
+  // }
+
+  // base64ToImage(dataURI) {
+  //   const fileDate = dataURI.split(',');
+  //   // const mime = fileDate[0].match(/:(.*?);/)[1];
+  //   const byteString = atob(fileDate[1]);
+  //   const arrayBuffer = new ArrayBuffer(byteString.length);
+  //   const int8Array = new Uint8Array(arrayBuffer);
+  //   for (let i = 0; i < byteString.length; i++) {
+  //     int8Array[i] = byteString.charCodeAt(i);
+  //   }
+  //   const blob = new Blob([arrayBuffer], { type: 'image/png' });
+  //   return blob;
+  // }
 
 }

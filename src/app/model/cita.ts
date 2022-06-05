@@ -1,9 +1,10 @@
+import { Mascota } from "../models/mascota";
 export class Cita {
     // fecha?;
+    // mascotas: String;
     id?: string;
-    mascotas: String;
     servicio: String;
-
     fecha;
     hora;
+    mascota?: Mascota;
 }

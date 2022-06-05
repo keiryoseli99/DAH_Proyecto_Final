@@ -6,7 +6,7 @@
 
 <ion-content>
   <ion-row>
-    <ion-col>
+    <ion-col size="12" size-md="10">
       <ion-button expand="block" color="lila" routerLink="/nuevo">
         Cliente Nuevo
       </ion-button>
@@ -14,13 +14,13 @@
         placeholder="Cliente existente"
         [(ngModel)]="searchTerm"
         showCancelButton="focus"
-        animated></ion-searchbar>
+        animated="true"></ion-searchbar>
       <ion-list *ngFor="let mascota of mascotas | filter:searchTerm" color="peach" class="list" lines="none">
         <ion-item color="casiblanco" (click)="postId(mascota)" class="item">
           <div class="img">
-            <ion-img src="{{mascota.img}}"></ion-img>
+            <ion-img src="{{mascota.img}}" ></ion-img>
           </div>
-          <h3>Mascota: {{mascota.nombre}}<br>Contacto: {{mascota.contacto}}</h3>
+          <p>Mascota: {{mascota.nombre}}<br>Contacto: {{mascota.contacto}}</p>
         </ion-item>
       </ion-list>
     </ion-col>

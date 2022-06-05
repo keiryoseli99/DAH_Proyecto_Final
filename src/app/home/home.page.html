@@ -6,21 +6,28 @@
 
 <ion-content>
   <ion-row>
-    <ion-col>
-      <!-- <ion-list *ngFor="let mascota of mascotas" color="peach" class="list" lines="none">
-        <ion-item color="casiblanco" (click)="postId(mascota)" class="item">
-          <div class="img">
-            <ion-img src="{{mascota.img}}"></ion-img>
-          </div>
-          <h3>{{mascota.nombre}}<br>{{mascota.contacto}}</h3>
-          <h3>{{mascota.nombre}}<br>{{mascota.contacto}}</h3>
-        </ion-item>
-      </ion-list> -->
-      <ion-list *ngFor="let cita of citas" color="peach" class="list" lines="none">
+    <ion-col size="12" size-md="10">
+      <ion-list color="peach" class="list" lines="none" *ngFor="let cita of citas">
         <ion-item color="casiblanco" class="item">
-          <h3>Hora: {{cita.hora}}<br>Fecha: {{cita.fecha}}</h3>
+          <div class="img">
+            <ion-img src="{{cita.mascota.img}}" ></ion-img>
+          </div>
+          <p>
+            Hora: {{cita.hora}}
+            <br>
+            Fecha: {{cita.fecha}}
+            <br>
+            Servicio: {{cita.servicio}}
+            <br>
+            Contacto: {{cita.mascota.contacto}}
+          </p>
         </ion-item>
       </ion-list>
+      <!-- <ion-list *ngFor="let cita of citas"  color="peach" class="list" lines="none">
+        <ion-item color="casiblanco" class="item">
+          <h3>Hora: {{cita.hora}}<br>Fecha: {{cita.fecha}}<br>Servicio:{{cita.servicio}}</h3>
+        </ion-item>
+      </ion-list> -->
     </ion-col>
   </ion-row>
 </ion-content>

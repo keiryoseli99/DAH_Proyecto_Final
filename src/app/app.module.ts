@@ -15,6 +15,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { environment } from './../environments/environment';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Camera } from '@awesome-cordova-plugins/camera/ngx';
+import { CameraMock } from '../app/camera.mock'
 
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
@@ -28,7 +29,10 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     // AngularFireStorage,
     FormsModule,
     ReactiveFormsModule],
-  providers: [Camera, AngularFirestore,{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+  providers: [
+    AngularFirestore,
+    { provide: Camera, useClass: CameraMock },
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

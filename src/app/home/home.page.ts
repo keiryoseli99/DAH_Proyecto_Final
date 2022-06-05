@@ -4,6 +4,10 @@ import { MascotasService } from './../services/mascotas.service';
 import { Mascota } from './../models/mascota';
 import { Cita } from '../model/cita';
 import { format, parseISO } from 'date-fns';
+import { ActivatedRoute } from '@angular/router';
+import { AngularFirestore, AngularFirestoreCollection  } from '@angular/fire/compat/firestore';
+import {DocumentReference} from '@angular/fire/firestore';
+import { expand } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -12,89 +16,60 @@ import { format, parseISO } from 'date-fns';
 })
 export class HomePage {
 
-  public mascota:Mascota;
+  public pet:Mascota;
   public cita:Cita;
   public mascotas: any[]=[];
   public citas: any[]=[];
   public hoy: string;
   public resultado: string;
-  public id: any[]=[];
-  public ambos: any[]=[];
+  public col: string;
 
-  constructor(private service:MascotasService, public alertCtrl: AlertController, private navCtrl: NavController) {
+  constructor(
+    private service:MascotasService, 
+    private route: ActivatedRoute, 
+    public alertCtrl: AlertController, 
+    private navCtrl: NavController,
+    private firestore:AngularFirestore) {
     this.hoy = format(new Date(Date.now()), 'dd-MM-yyyy');
-    // console.log(this.hoy)
-
     const filter = ref =>
       ref.where("fecha", "==", this.hoy);
-
-    this.service.getDateById(filter).subscribe((snap) => {
-      snap.forEach((e) => {
+    this.service.getDateByFilter(filter).subscribe(snap => {
+      snap.forEach(a => {
         this.citas.push({
-          id: e.payload.doc.id,...e.payload.doc.data() as Cita
-        });
-      });
+          id: a.payload.doc.id, ...a.payload.doc.data() as Cita
+        })
+      })
     });
-    
-
-    // this.service.getPet().subscribe(data => {
-    //   this.citas= data.map(e => {
-    //     return {
-    //       id: e.payload.doc.id,...e.payload.doc.data() as Cita
-    //     }
-    //   })
-    // });
-
-    // this.service.getDate().subscribe(data => {
-    //   this.citas= data.map(e => {
-    //     return {
-    //       id: e.payload.doc.id,...e.payload.doc.data() as Cita
-    //     }
-    //   })
-    // });
-
-    this.service.getPet().subscribe((snap) => {
-      snap.forEach((e) => {
-        this.mascotas.push({
-          id: e.payload.doc.id,...e.payload.doc.data() as Mascota
-        });      
-        this.id.push({
-          id: e.payload.doc.id
-        });
-      });
-    });
-    // this.service.getDate().subscribe((snap) => {
-    //   snap.forEach((e) => {
-    //     this.citas.push({
-    //       id: e.payload.doc.id,...e.payload.doc.data() as Cita
-    //     });      
-    //   });
-    // });
-    // console.log(this.mascotas)
-    // console.log(this.id)
-    // console.log(this.citas)
-
-    // if(this.citas.length>0){
-    //   for(let i=0; i<this.citas.length; ++i){
-    //     this.ambos[i] = this.citas.pop(i)
-    //   }
-    // }
   }
-  
 
-//    // esta es la cadena donde buscaremos
-// let cadena = "Este era un gato con los pies de trapo";
-// // esta es la palabra a buscar
-// let termino = "gato";
-// // para buscar la palabra hacemos
-// let posicion = cadena.indexOf(termino);
-// if (posicion !== -1)
-//     console.log("La palabra está en la posición " + posicion);
-// else
-//     console.log("No encontré lo que estás buscando");
-
-   postId(mascota){
+  postId(mascota){
     this.navCtrl.navigateForward(['/perfil/'+mascota.id, mascota]);
-   }
+  }
+
+  // getDateId(){
+  //   const filter = ref =>
+  //     ref.where("fecha", "==", this.hoy);
+  //   this.firestore.collection('mascotas').snapshotChanges().subscribe(data => {
+  //     data.forEach(e => {
+  //       this.mascotas.push({
+  //         id: e.payload.doc.id,
+  //         data: e.payload.doc.data() as Mascota,
+  //         date: this.firestore.collection('mascotas/'+e.payload.doc.id+'/citas', filter).snapshotChanges().subscribe(snap => {
+  //           // this.citas = snap.map(a => {
+  //           //   return {
+  //           //     id: a.payload.doc.id, ...a.payload.doc.data() as Cita
+  //           //   }
+  //           // });
+  //           snap.forEach(a => {
+  //             this.citas.push({
+  //               id: a.payload.doc.id, ...a.payload.doc.data() as Cita
+  //             })
+  //           })
+
+  //         })
+  //       })
+  //     })
+  //   });
+  // }
 
 }

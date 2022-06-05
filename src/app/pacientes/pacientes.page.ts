@@ -14,7 +14,11 @@ export class PacientesPage implements OnInit {
   public mascotas: Mascota[];
   public searchTerm: string;
 
-  constructor(private service:MascotasService, public alertCtrl: AlertController, private navCtrl: NavController) {
+
+  constructor(
+    private service:MascotasService, 
+    public alertCtrl: AlertController, 
+    private navCtrl: NavController) {
     this.service.getPet().subscribe(data => {
       this.mascotas = data.map(e => {
         return {

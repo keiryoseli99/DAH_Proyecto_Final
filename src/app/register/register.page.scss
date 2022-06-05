@@ -2,12 +2,14 @@ ion-button, ion-toolbar {
     background-color: var(--ion-color-lila);
 }
 
-.botonesInicio{
+ion-row {
+    display: flex;
+    justify-content: center;
     text-align: center;
 }
 
-.img{
-    margin-top: 20px;
+.botonesInicio{
+    text-align: center;
 }
 
 ion-label{
@@ -22,4 +24,8 @@ ion-label{
 .link{
     text-decoration: none;
     color: var(--ion-color-lila);
+}
+
+.col {
+    margin-bottom: 20px;
 }

@@ -20,17 +20,22 @@ export class CitaPage implements OnInit {
   @ViewChild(IonDatetime) datetime: IonDatetime;
 
   date = format(new Date(Date.now()), 'h:mm a, dd-MM-yyyy', {locale: es});
-  dateValue = new Date(Date.now()).toISOString(); //checar la hora
+  dateValue = new Date(Date.now() - (new Date().getTimezoneOffset() * 60000)).toISOString();
   public cita:Cita;
   public citas: Cita[];
-
+  public mascota: Mascota;
   public id?: string;
+  public nombre: string;
+  public tipo: string;
+  public contacto: string;
+  public telefono;
+  public img;
 
   public myForm:FormGroup;
   public validationMessages: object;
 
   fecha = format(new Date(Date.now()), 'dd-MM-yyyy', {locale: es});
-  hora = format(new Date(Date.now()), 'h:mm a', {locale: es});
+  hora = format(new Date(Date.now()), 'h:mm a');
   espacio = "  ";
 
   constructor(
@@ -42,7 +47,15 @@ export class CitaPage implements OnInit {
     private toast: ToastController
   ) {
     this.id = this.route.snapshot.paramMap.get('id');
-    // console.log(this.fecha)
+    this.mascota = {
+      id: this.route.snapshot.paramMap.get('id'),
+      nombre: this.route.snapshot.paramMap.get('nombre'),
+      tipo: this.route.snapshot.paramMap.get('tipo'),
+      contacto: this.route.snapshot.paramMap.get('contacto'),
+      telefono: this.route.snapshot.paramMap.get('telefono'),
+      img: this.route.snapshot.paramMap.get('img')
+    }
+    // console.log(this.mascota)
     // console.log(this.hora)
   }
 
@@ -65,13 +78,13 @@ export class CitaPage implements OnInit {
   create() {
     this.cita = {
       // fecha: this.date,
-      mascotas: 'mascotas/' + this.id,
+      // mascotas: 'mascotas/' + this.id,
       servicio: this.myForm.controls.servicio.value,
-
       fecha: this.fecha,
-      hora: this.hora
+      hora: this.hora,
+      mascota: this.mascota
     }
-    this.mascotasService.createCita(this.cita);
+    this.mascotasService.createCita(this.cita).catch(e => console.log(e));
     this.presentToast();
   }
 
@@ -104,6 +117,6 @@ export class CitaPage implements OnInit {
   formatDate(value: string): void{
     // return format(parseISO(value), 'PPPP', {locale: es});
     this.fecha = format(parseISO(value), 'dd-MM-yyyy', {locale: es});
-    this.hora = format(parseISO(value), 'h:mm a', {locale: es});
+    this.hora = format(parseISO(value), 'h:mm a');
   }
 }

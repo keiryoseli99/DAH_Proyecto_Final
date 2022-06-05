@@ -6,12 +6,12 @@
 
 <ion-content>
   <ion-row>
-    <ion-col class="img">
+    <ion-col class="img" size="12" size-md="6">
       <ion-img src="assets/imagenes/Anima-Pet.png"></ion-img>
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col width-50 style="text-align: left">
+    <ion-col size="12" size-md="6" width-50 style="text-align: left">
       <ion-item>
         <ion-label position="floating" color="lila">correo:</ion-label>
       <ion-input name="email" type="email" [(ngModel)]="user.email" required></ion-input>
@@ -23,17 +23,17 @@
     </ion-col>
   </ion-row>
   <ion-row>
-    <ion-col width-50 style="text-align: center">
+    <ion-col size="12" size-md="6" width-50 style="text-align: center">
       <ion-button color="lila" class="botonesInicio" type="submit" (click)="onLogin()">Iniciar Sesión</ion-button>
     </ion-col>
   </ion-row>
   <!-- <ion-row>
-    <ion-col width-50 style="text-align: center">
+    <ion-col size="12" size-md="6" width-50 style="text-align: center">
       <ion-button color="lila" class="botonesInicio" type="submit" (click)="onLoginGoogle()" >Iniciar Sesión con Google</ion-button>
     </ion-col>
   </ion-row> -->
   <ion-row class="margen">
-    <ion-col width-50 style="text-align: center">
+    <ion-col size="12" size-md="6" class="col" width-50 style="text-align: center">
      <div>
        <a class="link" routerLink="/register">No tienes cuenta, registrate.</a>
      </div>

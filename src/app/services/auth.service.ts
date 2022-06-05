@@ -2,6 +2,7 @@ import { signInWithPopup, signInWithEmailAndPassword, GoogleAuthProvider } from 
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { User } from '../modelUser/user';
+import firebase from 'firebase/compat/app';
 
 @Injectable({
   providedIn: 'root'
@@ -39,6 +40,6 @@ export class AuthService {
   }
 
   async onloginGoogleUser() {
-    return this.afsAuth.signInWithPopup(new GoogleAuthProvider());
+    return await this.afsAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
   }
 }

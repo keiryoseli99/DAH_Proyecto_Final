@@ -33,9 +33,8 @@ export class MascotasService {
 
   getPetById(id: string){
     return this.firestore.collection('mascotas').doc(id).snapshotChanges();
-    //return this.firestore.collection('citas', filter).snapshotChanges();
     //return this.firestore.doc('mascotas/'+id).snapshotChanges();
-    //return this.firestore.collection('estudiante').valueChanges({idField: id});
+    //return this.firestore.collection('mascotas').valueChanges({idField: id});
   }
 
   updatePet(mascota: Mascota, id: string){
@@ -48,19 +47,29 @@ export class MascotasService {
 
   ////////////////////CITAS////////////////////
 
+  // createCita(cita: Cita, id: string){
+  //   return this.firestore.collection('mascotas/'+id+'/citas').add(cita);
+  // }
   createCita(cita: Cita){
     return this.firestore.collection('citas').add(cita);
   }
 
+  // getDate(id: string){
+  //   return this.firestore.collection('mascotas/'+id+'/citas').snapshotChanges();
+  // }
   getDate(){
     return this.firestore.collection('citas').snapshotChanges();
   }
-  getDateById(filter){
-    return this.firestore.collection('citas', filter).snapshotChanges();
-    //return this.firestore.collection('citas').valueChanges({mascotas: 'mascotas/'+id});
-  }
 
+  // deleteDate(idm: string, idc: string){
+  //   this.firestore.doc('mascotas/'+idm+'/citas/'+idc).delete();
+  // }
   deleteDate(id: string){
     this.firestore.doc('citas/'+id).delete();
+  }
+  
+  getDateByFilter(filter){
+    return this.firestore.collection('citas', filter).snapshotChanges();
+    //return this.firestore.collection('citas').valueChanges({mascotas: 'mascotas/'+id});
   }
 }

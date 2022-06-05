@@ -1,6 +1,12 @@
 ion-button, ion-toolbar {
     background-color: var(--ion-color-lila);
   }
+
+  ion-row {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
   
   // .img {
   //   display: inline-block;
@@ -18,9 +24,10 @@ ion-button, ion-toolbar {
   //   width: auto;
   //   height: 100%;
   // }
+
   .img {
-    width: 105px;
-    height: 105px;
+    width: 100px;
+    height: 100px;
     background-color: var(--ion-color-peach);  
     margin-right: 20px; 
     margin-top: 5px;
@@ -52,4 +59,13 @@ ion-item {
 
 ion-list {
     background-color: var(--ion-color-peach);
+}
+
+ion-img {
+  width: 100px;
+  height: 100px;
+}
+
+p {
+  color: rgb(70, 70, 70)
 }

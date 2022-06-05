@@ -2,7 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from './../services/auth.service';
 import { User } from '../modelUser/user';
-import { AlertController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
+import { MascotasService } from './../services/mascotas.service';
+import { Mascota } from './../models/mascota';
+import { Cita } from '../model/cita';
 
 @Component({
   selector: 'app-login',
@@ -16,8 +19,10 @@ export class LoginPage implements OnInit {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private alertCtrl: AlertController
-  ) { }
+    private alertCtrl: AlertController,
+    private service:MascotasService,
+    private navCtrl: NavController
+  ) {  }
 
   ngOnInit() {
   }
@@ -47,6 +52,7 @@ export class LoginPage implements OnInit {
   }
 
   onLoginRedirect(): void {
-    this.router.navigateByUrl('/tabs/home');
+    this.router.navigate(['/tabs/home']);
   }
+
 }

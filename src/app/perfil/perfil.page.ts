@@ -23,6 +23,10 @@ export class PerfilPage implements OnInit {
   public telefono;
   public img;
 
+  public servicio: String;
+  public fecha: string;
+  public hora: string;
+
   public cita:Cita;
   public citas: any[]=[];
 
@@ -34,16 +38,16 @@ export class PerfilPage implements OnInit {
     private toast: ToastController,
     private router: Router) {
     this.id = this.route.snapshot.paramMap.get('id');
-    this.nombre = this.route.snapshot.paramMap.get('nombre');
-    this.tipo = this.route.snapshot.paramMap.get('tipo');
-    this.contacto = this.route.snapshot.paramMap.get('contacto');
-    this.telefono = this.route.snapshot.paramMap.get('telefono');
-    this.img = this.route.snapshot.paramMap.get('img');
+    this.nombre = this.route.snapshot.paramMap.get('nombre'),
+    this.tipo = this.route.snapshot.paramMap.get('tipo'),
+    this.contacto = this.route.snapshot.paramMap.get('contacto'),
+    this.telefono = this.route.snapshot.paramMap.get('telefono'),
+    this.img = this.route.snapshot.paramMap.get('img')
 
     const filter = ref =>
-      ref.where("mascotas", "==", "mascotas/"+this.id);
+      ref.where("mascota.id", "==", this.id);
 
-    this.service.getDateById(filter).subscribe((snap) => {
+    this.service.getDateByFilter(filter).subscribe((snap) => {
       snap.forEach((e) => {
         this.citas.push({
           id: e.payload.doc.id,...e.payload.doc.data() as Cita
@@ -52,12 +56,12 @@ export class PerfilPage implements OnInit {
     });
 
     this.mascota = {
-      id: this.route.snapshot.paramMap.get('id'),
-      nombre: this.route.snapshot.paramMap.get('nombre'),
-      tipo: this.route.snapshot.paramMap.get('tipo'),
-      contacto: this.route.snapshot.paramMap.get('contacto'),
-      telefono: this.route.snapshot.paramMap.get('telefono'),
-      img: this.route.snapshot.paramMap.get('img')
+      id: this.id,
+      nombre: this.nombre,
+      tipo: this.tipo,
+      contacto: this.contacto,
+      telefono: this.telefono,
+      img: this.img
     }
     // this.service.getPetById(this.id).subscribe((e) => {
     //     this.mascota = e.payload.data() as Mascota
