@@ -31,7 +31,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     ReactiveFormsModule],
   providers: [
     AngularFirestore,
-    { provide: Camera, useClass: CameraMock },
+    Camera,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

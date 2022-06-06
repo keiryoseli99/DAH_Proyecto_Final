@@ -113,7 +113,8 @@ export class NuevoPage implements OnInit {
   getGallery(){
     return this.camera.getPicture({
       sourceType: this.camera.PictureSourceType.PHOTOLIBRARY,
-      destinationType: this.camera.DestinationType.DATA_URL
+      destinationType: this.camera.DestinationType.DATA_URL,
+      correctOrientation: true
     }).then((res)=>{
       this.base64Image = 'data:image/jpeg;base64,' + res
     }).catch(e =>{

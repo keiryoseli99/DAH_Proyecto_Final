@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>
-  <form>
+  <form [formGroup]="myForm"> 
     <ion-grid>
       <ion-row>
         <ion-col class="img" size="12" size-md="6">
@@ -16,12 +16,26 @@
         <ion-col size="12" size-md="6" width-50 style="text-align: left">
           <ion-item>
             <ion-label position="floating" color="lila">correo:</ion-label>
-          <ion-input name="email" type="email" [(ngModel)]="user.email" required></ion-input>
+          <ion-input name="email" type="email" formControlName="email"></ion-input>
           </ion-item>
+          <div class="">
+            <ng-container *ngFor="let val of validationMessages['email']">
+              <div class="" *ngIf="myForm.get('email').hasError(val.type)&&(myForm.get('email').dirty || myForm.get('email').touched)" >
+                {{val.message}}
+              </div>
+            </ng-container>
+          </div>
           <ion-item>
             <ion-label position="floating" color="lila">contraseña:</ion-label>
-            <ion-input name="password" type="password" [(ngModel)]="user.password" required></ion-input>
+            <ion-input name="password" type="password" formControlName="password" minlength="6"></ion-input>
           </ion-item>
+          <div class="">
+            <ng-container *ngFor="let val of validationMessages['password']">
+              <div class="" *ngIf="myForm.get('password').hasError(val.type)&&(myForm.get('password').dirty || myForm.get('password').touched)" >
+                {{val.message}}
+              </div>
+            </ng-container>
+          </div>
         </ion-col>
       </ion-row>
       <ion-row>
